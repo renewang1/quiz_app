@@ -1,6 +1,8 @@
 const express = require('express');
+const app = express();
 const router  = express.Router();
-const { userExists } = require("./helpers")
+const { userExists } = require("../helpers")
+const bcrypt = require('bcrypt');
 
 module.exports = (db) => {
   router.get("/login", (req, res) => {

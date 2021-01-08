@@ -1,6 +1,12 @@
 const express = require('express');
 const router  = express.Router();
-const { userExists } = require("./helpers")
+const bcrypt = require('bcrypt');
+const { userExists } = require("../helpers")
+
+// router.use(cookieSession({
+//   name: "session",
+//   keys: ['key1', 'key2']
+// }));
 
 module.exports = (db) => {
   router.get("/register", (req, res) => {
