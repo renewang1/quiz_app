@@ -15,7 +15,7 @@ CREATE TABLE quizzes (
   description TEXT,
   url TEXT NOT NULL,
   is_private BOOLEAN NOT NULL DEFAULT FALSE,
-  deleted_at TIMESTAMP
+  deleted_at TIMESTAMP DEFAULT NULL
 );
 
 
@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS questions CASCADE;
 CREATE TABLE questions (
   id SERIAL PRIMARY KEY NOT NULL,
   quiz_id INTEGER REFERENCES quizzes(id) ON DELETE CASCADE,
-  question TEXT
+  question TEXT NOT NULL
 );
 
 
@@ -31,7 +31,7 @@ DROP TABLE IF EXISTS answers CASCADE;
 CREATE TABLE answers (
   id SERIAL PRIMARY KEY NOT NULL,
   question_id INTEGER REFERENCES questions(id) ON DELETE CASCADE,
-  answer TEXT,
+  answer TEXT NOT NULL,
   is_correct BOOLEAN NOT NULL
 );
 
@@ -40,5 +40,5 @@ DROP TABLE IF EXISTS results CASCADE;
 CREATE TABLE results (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  result INTEGER -- OR FLOAT? Not sure
+  result INTEGER NOT NULL
 );
