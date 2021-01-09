@@ -1,0 +1,108 @@
+INSERT INTO users (username, email, password)
+VALUES ('mario', 'mario@ymail.com', '123'),
+('luigi', 'luigi@ymail.com', '123'),
+('toad', 'toad@ymail.com', '123'),
+('yoshi', 'yoshi@ymail.com', '123'),
+('bowser', 'bowser@ymail.com', '123');
+
+
+INSERT INTO quizzes (creator_id, title, description, url, is_private, deleted_at)
+VALUES (1, 'Sports', 'Gummi bears dessert carrot cake biscuit pastry. ', 'updated url', false, Null),
+(2, 'Food and drink', 'Dessert donut chocolate toffee pie gingerbread carrot cake dragée', 'updated url', false, Null),
+(2, 'TV', 'Sweet roll sugar plum sweet roll cupcake bear claw.', 'updated url', true, Null),
+(3, 'Music', 'Topping sesame snaps pudding candy canes brownie. ', 'updated url', true, Null);
+
+
+INSERT INTO questions (quiz_id, question)
+VALUES (1, 'What are the five colours of the Olympic rings?'),
+(1, 'In tennis, what piece of fruit is found at the top of the men’s Wimbledon trophy?'),
+(2, 'Which country is the origin of the cocktail Mojito?'),
+(2, 'Which nuts are used in marzipan?'),
+(3, 'What is the capital of Westeros in Game of Thrones?'),
+(4, 'Who is the only musician ever to have been awarded the Nobel prize for literature?'),
+(4, 'Which Beatles song was banned from the BBC for its lyrics?'),
+(2, 'What is Japanese sake made from?'),
+(2, 'Which vitamin is the only one that you will not find in an egg?'),
+(2, 'Tomatoes originated from which continent?'),
+(2, 'Which country exports the most food?'),
+(1, 'In 2015, which NBA player broke the record for most points scored in a quarter?'),
+(1, 'Which NFL player has won the most playoff games in history?'),
+(3, 'Who has selective mutism in The Big Bang Theory?'),
+(3, 'In the show "Breaking Bad", where does Walter White hide his money in his home?'),
+(3, 'Sergeant Nicholas Brody was a character on which of the following series?'),
+(3, 'The popular 1990’s television series "Twin Peaks" took place in which state?');
+
+
+
+INSERT INTO answers (question_id, answer, is_correct)
+VALUES (1, 'Blue, yellow, black, green and red', true),
+(1, 'Yellow, green, red, blue and orange', false),
+(1, 'White, blue, green, red and orange', false),
+(1, 'Blue, purple, black, green and red', false),
+(2, 'Pineapple', true),
+(2, 'Apple', false),
+(2, 'Orange', false),
+(2, 'Melon', false),
+(3, 'Cuba', true),
+(3, 'Mexico', false),
+(3, 'Chile', false),
+(4, 'Almonds', true),
+(4, 'Hazelnuts', false),
+(4, 'Cashews', false),
+(5, 'King’s Landing', true),
+(5, 'Winterfell', false),
+(5, 'Casterly Rock', false),
+(5, 'Dragonstone', false),
+(6, 'Bob Dylan', true),
+(6, 'Elvis Presley', false),
+(6, 'Paul McCartney', false),
+(6, 'Elton John', false),
+(7, 'I am the Walrus', true),
+(7, 'Penny Lane', false),
+(7, 'Come together', false),
+(7, 'Something', false),
+(8, 'Rice', true),
+(8, 'Wheat', false),
+(8, 'Corn', false),
+(9, 'Vitamin C', true),
+(9, 'Vitamin A', false),
+(9, 'Vitamin D', false),
+(9, 'Vitamin K', false),
+(10, 'South America', true),
+(10, 'Europe', false),
+(10, 'Asia', false),
+(10, 'Africa', false),
+(11, 'United States', true),
+(11, 'China', false),
+(11, 'India', false),
+(12, 'Klay Thompson', true),
+(12, 'Kevin Durant', false),
+(12, 'Kevin Love', false),
+(12, 'Carmelo Anthony', false),
+(13, 'Tom Brady', true),
+(13, 'Joe Montana', false),
+(13, 'Drew Brees', false),
+(13, 'John Elway', true),
+(14, 'Raj', true),
+(14, 'Leonard', false),
+(14, 'Sheldon', false),
+(14, 'Howard', false),
+(15, 'Heating duct', true),
+(15, 'Closet', false),
+(15, 'Fridge', false),
+(15, 'Car seat', false),
+(16, 'Homeland', true),
+(16, 'Prison Break', false),
+(16, 'The Punisher', false),
+(16, 'Band of Brothers', false),
+(17, 'Washington', true),
+(17, 'Pennsylvania', false),
+(17, 'Michigan', false),
+(17, 'New York', false);
+
+
+
+INSERT INTO results (user_id, quiz_id, result)
+VALUES (1, 2, 70),
+(2, 2, 80),
+(3, 3, 50);
