@@ -11,13 +11,30 @@ module.exports = (db) => {
   //Creating new quiz
   router.post("/", (req, res) => {
     const queryParams = [];
+    let returnData = {};
     db.query(`
       INSERT INTO quizzes (creator_id, title, description, URL, private)
       VALUES (1$, 2$, 3$, 4$, 5%)
       RETURNING *;
     `, queryParams)
       .then(res => {
-
+        returnData.table1 = res;
+        db.query(`
+          INSERT INTO questions (quiz_id, question)
+          VALUES (1$, 2$)
+          RETURNING *;
+        `, [returnData.table1.res.rows.id, queryParams])
+      })
+      .then(res => {
+        returnData.table2 = res;
+        db.query(`
+        INSERT INTO answers (question_id, answer, correct)
+        VALUES ($1, $2, $3)
+        `, [returnData.table2.res.rows.id, queryParams])
+      })
+      .then(res => {
+        returnData.table3 = res;
+        return res;
       })
       .catch(err => {
         res
