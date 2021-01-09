@@ -10,24 +10,21 @@ module.exports = (db) => {
   );
   //Creating new quiz
   router.post("/", (req, res) => {
-    return db.query(`
-      SELECT * FROM users
-      WHERE username = 1$
+    const queryParams = [];
+    db.query(`
+      INSERT INTO quizzes (creator_id, title, description, URL, private)
+      VALUES (1$, 2$, 3$, 4$, 5%)
       RETURNING *;
-    `, [username])
+    `, queryParams)
       .then(res => {
-        if (bcrypt.compareSync(password, res.rows.password)) {
-          req.session.user_id = res.rows.id;
-          res.redirect(`/`);
-          return;
-        }
-        res.status(401).send('Email or password is incorrect');
+
       })
       .catch(err => {
         res
           .status(500)
           .json({ error: err.message });
       });
+
   });
   //Quiz creation page
   router.get("/new", (req, res) => {
@@ -35,11 +32,11 @@ module.exports = (db) => {
   })
   //Taking quiz page using quiz id
   router.get("/:id", (req, res) => {
-    res.render("quizzes_show")
+    res.render("quizzes_show");
   })
   //Getting results of quiz using quiz id and user id
   router.get("/:id/:userid", (req, res) => {
-    res.render("quiz_results")
+    res.render("quiz_results");
   })
   //Delete quiz
   router.delete("/:id", (req, res) => {
