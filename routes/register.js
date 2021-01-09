@@ -9,10 +9,9 @@ const { userExists } = require("../helpers")
 // }));
 
 module.exports = (db) => {
-  router.get("/register", (req, res) => {
-    const user = users[req.session.user_id]
+  router.get("/", (req, res) => {
     //checking if user is logged in
-    if (user) {
+    if (req.session && req.session.user_id) {
       res.redirect("/");
     } else {
       res.render("register")

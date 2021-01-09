@@ -5,17 +5,16 @@ const { userExists } = require("../helpers")
 const bcrypt = require('bcrypt');
 
 module.exports = (db) => {
-  router.get("/login", (req, res) => {
-    const user = users[req.session.user_id]
+  router.get("/", (req, res) => {
     //checking if user is logged in
-    if (user) {
+    if (req.session && req.session.user_id) {
       res.redirect("/");
     } else {
       res.render("login")
     }
   });
 
-  router.post("/login", (req, res) => {
+  router.post("/", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     //Checking if email or password field is empty
