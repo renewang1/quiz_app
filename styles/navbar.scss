@@ -1,0 +1,126 @@
+nav {
+  display: flex;
+  height: 120px;
+  width: 100%;
+  background-color:  rgb(56, 118, 153);
+  color: #ffffff;
+  padding: 1.5em;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+}
+
+.leftbuttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: large;
+  justify-items: flex;
+  font-family: "Roboto";
+  font-size: large;
+}
+
+.rightbuttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: large;
+  justify-items: flex;
+  font-family: "Roboto";
+  font-size: large;
+}
+
+.logo {
+  font-family: "Hanalei Fill";
+  font-size: xxx-large;
+  background-color:  rgb(56, 118, 153);
+  border: none;
+  color: #FFFFFF;
+  margin-right: 1em;;
+}
+
+.create{
+  display:inline-block;
+  padding:0.5em 1em;
+  border:0.16em solid #FFFFFF;
+  margin:0 1.5em 0.3em 0;
+  box-sizing: border-box;
+  text-decoration:none;
+  text-transform:uppercase;
+  font-family:'Roboto',sans-serif;
+  font-weight:400;
+  color:#FFFFFF;
+  text-align:center;
+  transition: all 0.15s;
+  background-color: rgb(56, 118, 153);
+}
+.create:hover{
+  color:#DDDDDD;
+  border-color:#DDDDDD;
+}
+
+.myquiz{
+  display:inline-block;
+  padding:0.5em 1em;
+  border:0.16em solid #FFFFFF;
+  margin:0 0.3em 0.3em 0;
+  box-sizing: border-box;
+  text-decoration:none;
+  text-transform:uppercase;
+  font-family:'Roboto',sans-serif;
+  font-weight:400;
+  color:#FFFFFF;
+  text-align:center;
+  transition: all 0.15s;
+  background-color: rgb(56, 118, 153);
+}
+.myquiz:hover{
+  color:#DDDDDD;
+  border-color:#DDDDDD;
+}
+
+.login{
+  display:inline-block;
+  padding:0.5em 1em;
+  border:0.16em solid #FFFFFF;
+  margin:0 0.3em 0.3em 0;
+  box-sizing: border-box;
+  text-decoration:none;
+  text-transform:uppercase;
+  font-family:'Roboto',sans-serif;
+  font-weight:400;
+  color:#FFFFFF;
+  text-align:center;
+  transition: all 0.15s;
+  background-color: rgb(56, 118, 153);
+}
+.login:hover{
+  color:#DDDDDD;
+  border-color:#DDDDDD;
+}
+
+.createaccount{
+  display:inline-block;
+  padding:0.5em 1em;
+  border:0.16em solid #FFFFFF;
+  margin:0 0.3em 0.3em 1em;
+  box-sizing: border-box;
+  text-decoration:none;
+  text-transform:uppercase;
+  font-family:'Roboto',sans-serif;
+  font-weight:400;
+  color:rgb(255, 255, 255);
+  text-align:center;
+  transition: all 0.15s;
+  background-color: rgb(56, 118, 153);
+}
+.createaccount:hover{
+  color:#DDDDDD;
+  border-color:#DDDDDD;
+}
+
+.bold {
+  font-weight: 600;
+}
