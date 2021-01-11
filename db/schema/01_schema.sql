@@ -14,7 +14,7 @@ CREATE TABLE quizzes (
   title VARCHAR(255) NOT NULL,
   description TEXT,
   url TEXT NOT NULL,
-  is_private BOOLEAN NOT NULL DEFAULT FALSE,
+  is_private BOOLEAN NOT NULL,
   deleted_at TIMESTAMP DEFAULT NULL
 );
 
@@ -32,7 +32,7 @@ CREATE TABLE answers (
   id SERIAL PRIMARY KEY NOT NULL,
   question_id INTEGER REFERENCES questions(id) ON DELETE CASCADE,
   answer TEXT NOT NULL,
-  is_correct BOOLEAN NOT NULL
+  is_correct BOOLEAN DEFAULT FALSE
 );
 
 
