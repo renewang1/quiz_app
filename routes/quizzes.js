@@ -10,7 +10,7 @@ module.exports = (db) => {
     }
   );
   //Creating new quiz
-  router.post("/", (req, res) => {
+  router.post("/", (req, response) => {
     const queryParams = [];
     const id = req.body.id
     const title = req.body.title
@@ -27,8 +27,11 @@ module.exports = (db) => {
     `, queryParams)
       .then(res => {
         returnData.table1 = res.rows;
+        //Getting array of questions from req.body
         const questions = Object.keys(req.body).filter(item => item.slice(0, 8) === "question");
+        //Retreiving quiz id from returnData in previous insert query
         let quiz_id = returnData.table1[0].id;
+        //Adding actual value of each question into array to use as query parameter
         let questionValues = [];
         for (const question of questions) {
           questionValues.push(req.body[question]);
@@ -37,6 +40,7 @@ module.exports = (db) => {
         let queryString = `
         INSERT INTO questions (quiz_id, question)
         `;
+        //For loop to add string literals to queryString
         for (let i = 0; i < questions.length; i++) {
           if (i === 0) {
             queryString += `
@@ -55,16 +59,17 @@ module.exports = (db) => {
         queryString += `
         RETURNING *;
         `;
+        //Adding quiz id to beginning of questionValues array
         questionValues.unshift(quiz_id);
         return db.query(queryString, questionValues)
       })
       .then(res => {
         returnData.table2 = res;
-        // queryParams.push(returnData.table2.res.rows.id, req.body.answer, req.body.correct)
-
+        //Getting array of answers from req.body
         let answers = Object.keys(req.body).filter(item => item.slice(0, 6) === 'answer')
         let answerValues = {};
-
+        /*We define the question id within the answer name so answer2-1 would be answer 1 of question 2
+        We can categorize answers based on question and put them into an object*/
         for (const answer of answers) {
           if (answerValues[answer.slice(6, 7)]) {
             answerValues[answer.slice(6, 7)].push(req.body[answer]);
@@ -72,6 +77,8 @@ module.exports = (db) => {
             answerValues[answer.slice(6, 7)] = [req.body[answer]];
           }
         }
+        /*By our queryString logic, we put all of the question ids at the beginning of the queryParams
+        and the answer values after that*/
         let queryParams = [];
         for (let question in answerValues) {
           queryParams.push(question);
@@ -81,6 +88,7 @@ module.exports = (db) => {
             queryParams.push(answer);
           }
         }
+        //Here we build the queryString using an answer counter so each string literal is different
         let queryString = `
         INSERT INTO answers (question_id, answer)
         VALUES `
@@ -94,21 +102,33 @@ module.exports = (db) => {
             answerCount++;
           }
         }
+        //After adding all of the values, we need to remove the last comma from the queryString
         queryString = queryString.slice(0, -14);
         queryString += `
           RETURNING *;
         `;
-        console.log(queryString)
-        console.log(queryParams)
+        // console.log(queryString)
+        // console.log(queryParams)
         return db.query(queryString, queryParams)
       })
-      .then(res => res)
+      .then(res => {
+        let answers = Object.keys(req.body).filter(item => item.slice(0, 6) === 'answer')
+        let queryString = `
+          UPDATE answers
+          SET is_correct = true
+          WHERE question_id =
+        `
+
+        return db.query(queryString, queryParams)
+      })
+      .then(() => {
+        response.status(200).send('completed')
+      })
       .catch(err => {
         res
           .status(500)
           .json({ error: err.message });
       });
-
   });
   //Quiz creation page
   router.get("/new", (req, res) => {
