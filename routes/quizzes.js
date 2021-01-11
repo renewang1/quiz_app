@@ -67,31 +67,42 @@ module.exports = (db) => {
 
         for (const answer of answers) {
           if (answerValues[answer.slice(6, 7)]) {
-          answerValues[answer.slice(6, 7)].push(req.body[answer]);
+            answerValues[answer.slice(6, 7)].push(req.body[answer]);
           }	else {
-          answerValues[answer.slice(6, 7)] = [req.body[answer]];
+            answerValues[answer.slice(6, 7)] = [req.body[answer]];
           }
         }
-
-        console.log(answers)
-        console.log(answerValues)
-
-
-
-
-
+        let queryParams = [];
+        for (let question in answerValues) {
+          queryParams.push(question);
+        }
+        for (let question in answerValues) {
+          for (let answer of answerValues[question]) {
+            queryParams.push(answer);
+          }
+        }
         let queryString = `
-          INSERT INTO answers (question_id, answer, correct)
-        `
-        db.query(`
-        INSERT INTO answers (question_id, answer, correct)
-        VALUES ($1, $2, $3)
-        `, [queryParams[queryParams.length - 1], queryParams[queryParams.length]])
+        INSERT INTO answers (question_id, answer)
+        VALUES `
+        let numQuestions = Object.keys(answerValues).length;
+        let answerCount = numQuestions + 1;
+        for (let i = 0; i < Object.keys(answerValues).length; i++) {
+          for (let j = 0; j < answerValues[i + 1].length; j++) {
+            queryString += `
+            ($${i + 1}, $${answerCount}),
+            `;
+            answerCount++;
+          }
+        }
+        queryString = queryString.slice(0, -14);
+        queryString += `
+          RETURNING *;
+        `;
+        console.log(queryString)
+        console.log(queryParams)
+        return db.query(queryString, queryParams)
       })
-      .then(res => {
-        returnData.table3 = res;
-        return res;
-      })
+      .then(res => res)
       .catch(err => {
         res
           .status(500)
