@@ -1,9 +1,9 @@
-INSERT INTO users (username, email, password)
-VALUES ('mario', 'mario@ymail.com', '123'),
-('luigi', 'luigi@ymail.com', '123'),
-('toad', 'toad@ymail.com', '123'),
-('yoshi', 'yoshi@ymail.com', '123'),
-('bowser', 'bowser@ymail.com', '123');
+INSERT INTO users (username, password)
+VALUES ('mario', '123'),
+('luigi', '123'),
+('toad', '123'),
+('yoshi', '123'),
+('bowser', '123');
 
 
 INSERT INTO quizzes (creator_id, title, description, url, is_private, deleted_at)

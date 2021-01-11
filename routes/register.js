@@ -32,11 +32,15 @@ module.exports = (db) => {
   router.post("/", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    const email = req.body.email;
+    const reenterpassword = req.body.reenterpassword;
     //Checking if email or password field is empty
     if (username === '' || password === '') {
       res.status(401).send('Username or password is empty');
       return 'empty';
+    }
+    if (password !== reenterpassword) {
+      res.status(401).send('Passwords do not match');
+      return;
     }
     //Checking if username is already in use by existing user
     userExists(username).then(exists => {
@@ -46,12 +50,13 @@ module.exports = (db) => {
       } else {
         const hashedPassword = bcrypt.hashSync(password, 10);
         return db.query(`
-          INSERT INTO users (username, email, password)
-          VALUES ($1, $2, $3)
+          INSERT INTO users (username, password)
+          VALUES ($1, $2)
           RETURNING *;
-        `, [username, email, hashedPassword])
+        `, [username, hashedPassword])
           .then(response => {
-            res.status(200).send("succcesfully registered")
+            // res.status(200).send("succcesfully registered")
+            res.redirect("../quizzes")
             return;
           })
           .catch(err => {

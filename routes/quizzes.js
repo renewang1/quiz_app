@@ -6,7 +6,7 @@ const { query } = require('express');
 module.exports = (db) => {
   //Show all quizzes owned by current user
   router.get("/", (req, res) => {
-    res.render("quizzes");
+    res.render("myquizzes");
     }
   );
   //Creating new quiz
@@ -132,7 +132,7 @@ module.exports = (db) => {
   });
   //Quiz creation page
   router.get("/new", (req, res) => {
-    res.render("quizzes_new");
+    res.render("newquiz");
   })
   //Taking quiz page using quiz id
   router.get("/:id", (req, res) => {
