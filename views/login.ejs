@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Home Page</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Hanalei+Fill&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/navbar.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/login.css" type="text/css" />
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <%- include('navbar') %>
+    </header>
+      <main>
+        <div class="loginbox">
+          <h1>Login</h1>
+          <div class="userpassboxes">
+            <form action="/login" method="POST">
+              <div class="usernameinfo">
+                <label for="usernamebox">Username: </label>
+                <input type="text" name="usernamebox" class="usernamebox">
+              </div>
+              <div class="passwordinfo">
+                <label for="passwordbox">Password: </label>
+                <input type="text" name="passwordbox" class="passwordbox">
+              </div>
+              <button type="submit" class="loginbutton">Login</button>
+            </form>
+          </div>
+        </div>
+      </main>
+  </body>
+</html>
