@@ -15,19 +15,20 @@ module.exports = (db) => {
   router.post("/", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    //Checking if email or password field is empty
+    //Checking if username or password field is empty
     if (username === '' || password === '') {
       res.status(401).send('Username or password is empty');
       return;
     }
     return db.query(`
       SELECT * FROM users
-      WHERE username = 1$
-      RETURNING *;
+      WHERE username = $1;
     `, [username])
       .then(res => {
-        if (bcrypt.compareSync(password, res.rows.password)) {
-          req.session.user_id = res.rows.id;
+        console.log(res.rows[0].password)
+        if (bcrypt.compareSync(password, res.rows[0].password)) {
+          console.log(res.rows.id)
+          // req.session.user_id = res.rows.id;
           res.redirect(`/`);
           return;
         }
