@@ -1,0 +1,77 @@
+.registerbox{
+  margin-top:160px;
+  margin-left: 2em;
+  margin-right: 2em;
+  display: flex;
+  flex-direction: column;
+  font-family: "roboto";
+}
+
+.usernameinfo{
+  margin-bottom: 1em;
+}
+
+.passwordinfo{
+  margin-bottom: 1em;
+}
+
+.registerbutton{
+  font-size: large;
+  margin-bottom: 2em;
+  display:inline-block;
+  padding:0.5em 1em;
+  border:0.16em solid #FFFFFF;
+  margin:0 1.5em 1em 0em;
+  box-sizing: border-box;
+  text-decoration:none;
+  text-transform:uppercase;
+  font-family:'Roboto',sans-serif;
+  font-weight:400;
+  color:#FFFFFF;
+  text-align:center;
+  transition: all 0.15s;
+  background-color: rgb(165, 223, 238);
+}
+.loginbox{
+  margin-top:160px;
+  margin-left: 2em;
+  margin-right: 2em;
+  display: flex;
+  flex-direction: column;
+  font-family: "roboto";
+}
+
+.usernameinfo{
+  margin-bottom: 1em;
+}
+
+.passwordinfo{
+  margin-bottom: 1em;
+}
+
+.reenterpasswordinfo{
+  margin-bottom: 1em;
+}
+
+.registerbutton{
+  font-size: large;
+  margin-bottom: 2em;
+  display:inline-block;
+  padding:0.5em 1em;
+  border:0.16em solid #FFFFFF;
+  margin:0 1.5em 1em 0em;
+  box-sizing: border-box;
+  text-decoration:none;
+  text-transform:uppercase;
+  font-family:'Roboto',sans-serif;
+  font-weight:400;
+  color:#FFFFFF;
+  text-align:center;
+  transition: all 0.15s;
+  background-color: rgb(165, 223, 238);
+}
+
+.registerbutton:hover{
+  color:#DDDDDD;
+  border-color:#DDDDDD;
+}
