@@ -9,6 +9,22 @@ module.exports = (db) => {
     res.render("myquizzes");
     }
   );
+  //Passing data to frontend
+  router.get("/data", (req, res) => {
+    // const username = req.session.user_id
+    const username = 'mario';
+    db.query(`
+      SELECT * FROM quizzes
+      INNER JOIN users ON creator_id = users.id
+      WHERE username = $1;
+    `, [username])
+    .then(data => data.rows)
+    .then(rows => res.json(rows))
+    .catch(error => {
+      res.status(500).json(error);
+    })
+    }
+  )
   //Creating new quiz
   router.post("/", (req, response) => {
     const queryParams = [];
