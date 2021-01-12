@@ -1,10 +1,12 @@
 const express = require('express');
 const router  = express.Router();
 const bcrypt = require('bcrypt');
-// router.use(cookieSession({
-//   name: "session",
-//   keys: ['key1', 'key2']
-// }));
+const cookieSession = require('cookie-session');
+
+router.use(cookieSession({
+  name: "session",
+  keys: ['b6d0e7eb-8c4b-4ae4-8460-fd3a08733dcb', '1fb2d767-ffbf-41a6-98dd-86ac2da9392e']
+}));
 
 module.exports = (db) => {
   const userExists = function(username) {
@@ -22,7 +24,8 @@ module.exports = (db) => {
   }
   router.get("/", (req, res) => {
     //checking if user is logged in
-    if (req.session && req.session.user_id) {
+    console.log('register.js file - req.session', req.session);
+    if (req.session && req.session.username) {
       res.redirect("/");
     } else {
       res.render("register")
@@ -33,6 +36,7 @@ module.exports = (db) => {
     const username = req.body.username;
     const password = req.body.password;
     const reenterpassword = req.body.reenterpassword;
+    //console.log('==== req.body', req.body);
     //Checking if email or password field is empty
     if (username === '' || password === '') {
       res.status(401).send('Username or password is empty');
@@ -56,6 +60,8 @@ module.exports = (db) => {
         `, [username, hashedPassword])
           .then(response => {
             // res.status(200).send("succcesfully registered")
+            // create cookie
+            req.session.username = username;
             res.redirect("../quizzes")
             return;
           })
