@@ -21,52 +21,35 @@
 }
 
 .titleinfo{
-  margin-bottom: 1em;
-}
-
-.inputboxfortitle{
-  width: 20em;
+  font-size: xxx-large;
+  margin-bottom: .5em;
 }
 
 .descriptioninfo{
-  display: flex;
   margin-bottom: 1em;
+  font-size: x-large;
 }
 
 .possibleanswers{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin-bottom: 0em;
+  align-items: center;
 }
 
-.answers{
-  margin-bottom: 1em;
-  width: 50%;
-}
-.answersinfo{
-  display: flex;
-  flex-direction: column;
-}
-.question1{
-  margin-bottom: 1em;
-  width: 75%;
+.answersforquestion{
+margin-right: 1em;
+margin-top: .25em;
+margin-bottom: .25em;
+font-size: x-large;
 }
 
-.titleforanswers{
-  margin-bottom: 1em;
-}
 
-.descriptionofquiz{
-  margin-left: .5em;
-  width: 75%;
-}
-
-.createquizbutton{
-  margin-bottom: 2em;
+.submitanswersbutton{
   display:inline-block;
   padding:0.5em 1em;
   border:0.16em solid #FFFFFF;
-  margin:0 1.5em 0.3em 0;
+  margin:1em 1.5em 0.3em 0;
   box-sizing: border-box;
   text-decoration:none;
   text-transform:uppercase;
@@ -76,25 +59,6 @@
   text-align:center;
   transition: all 0.15s;
   background-color: rgb(56, 118, 153);
-}
-
-.addquestionbutton{
-  font-size: large;
-  margin-bottom: 2em;
-  display:inline-block;
-  padding:0.5em 1em;
-  border:0.16em solid #FFFFFF;
-  margin:0 1.5em 1em 0em;
-  box-sizing: border-box;
-  text-decoration:none;
-  text-transform:uppercase;
-  font-family:'Roboto',sans-serif;
-  font-weight:400;
-  color:#FFFFFF;
-  text-align:center;
-  transition: all 0.15s;
-  background-color: rgb(56, 118, 153);
-  width: 30%;
 }
 
 .bottombuttons{
@@ -104,4 +68,16 @@
 
 .makeprivatesections{
   margin-right: 1em;
+}
+
+.questioninfo{
+  border:2px solid rgb(46, 48, 49);
+  padding-left: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.questiontitle{
+  padding-bottom: .5em;
+  font-size: xx-large;
 }

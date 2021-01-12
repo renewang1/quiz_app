@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const bcrypt = require('bcrypt');
-const { query } = require('express');
+const { query, response } = require('express');
 
 module.exports = (db) => {
   //Show all quizzes owned by current user
@@ -154,6 +154,21 @@ module.exports = (db) => {
       res.render("login");
     }
   })
+  //Post results of quiz to database
+  router.post("/:id/:userid", (req, res) => {
+    const user_id = req.params.userid;
+    const quiz_id = req.params.id;
+    const score = req.body.score;
+    return db.query(`
+      INSERT INTO results (user_id, quiz_id, result)
+      VALUES ($1, $2, $3)
+    `, [user_id, quiz_id, score])
+    .then(() => {
+      response.status(200);
+      res.redirect("../../");
+    })
+  })
+
   //Delete quiz
   router.delete("/:id", (req, res) => {
     if (req.session && req.session.username) {
