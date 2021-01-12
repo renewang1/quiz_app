@@ -1,4 +1,11 @@
 $(document).ready(function() {
+  const loadQuizzes = function() {
+    $.ajax("/homepage/data", { method: 'GET' })
+      .done(function(data) {
+        renderQuizzes(data);
+      });
+  };
+
   loadQuizzes();
 });
 
@@ -14,23 +21,16 @@ const createQuizElement = function(quiz) {
     <div class="withinthebox">
       <div class="leftsidebuttonsquizbox">
         <span class="titleofquiz">${escape(quiz.title)}</span>
-        <span class="descriptionofquiz">${escape(quiz.descripition)}</span>
+        <span class="descriptionofquiz">${escape(quiz.description)}</span>
       </div>
       <div class="rightsidebuttonsquizbox">
         <button class="sharebutton">Share</button>
-        <span class="creator">${escape(quiz.creator)}</span>
+        <span class="creator">${escape(quiz.username)}</span>
       </div>
     </div>
-  </div>`);
+  </div>`)
   return $quiz;
 }
-
-const loadQuizzes = function() {
-  $.ajax("http://localhost:8080/homepage", { method: 'GET' })
-    .done(function(data) {
-      renderQuizzes(data);
-    });
-};
 
 const renderQuizzes = function(data) {
   $('.quiz-container').empty();
