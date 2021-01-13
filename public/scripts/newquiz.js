@@ -28,6 +28,7 @@ const createQuestionElement = function() {
       <label for="question${questionNumber}">Question:</label>
       <input type="text" name="question${questionNumber}" class="question${questionNumber}">
     </div>
+    <span class="prompt">Please select which is the correct answer</span>
     <span>
       <input type="text" name="answers" class="answers">
       <input type="radio" name="answer${questionNumber}">
