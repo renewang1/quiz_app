@@ -69,13 +69,6 @@ const createBottomButtons = function() {
   return $bottomButtons;
 }
 
-// const createAnswerButton = function() {
-//   const $answerbutton = $(`
-//     <button type="button" class="addanswerbutton">Add another answer</button>
-//   `)
-//   return $answerbutton;
-// }
-
 const appendQuestion = function() {
   let $question = createQuestionElement();
   $('.maininputform').append($question);
@@ -93,17 +86,3 @@ const restoreButtons = function() {
   let $bottomButtons = createBottomButtons();
   $(".maininputform").append($bottomButtons);
 }
-
-// const appendAnswerButton = function() {
-//   let $answerbutton = createAnswerButton();
-//   $('.maininputform').append($answerbutton);
-// }
-
-// const renderQuizzes = function(data) {
-//   $('.quiz-container').empty();
-//   for (let quiz of data) {
-//     let $quiz = createQuizElement(quiz);
-//     $('.quiz-container').append($quiz);
-//   }
-// }
-
