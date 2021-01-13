@@ -9,6 +9,9 @@
 
 .withinthebox{
   border:2px solid #2e3031;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .upperquizbox{
@@ -53,7 +56,7 @@
   background-color: rgb(165, 223, 238);
 }
 
-.shareresultsbutton{
+.sharebutton{
   display:inline-block;
   padding:0.5em 1em;
   border:0.16em solid #FFFFFF;
@@ -71,7 +74,7 @@
   font-size: large;
   margin-left: 4em;
 }
-.shareresultsbutton:hover{
+.sharebutton:hover{
   color:#DDDDDD;
   border-color:#DDDDDD;
 }
@@ -79,4 +82,18 @@
 .sharequizbutton:hover{
   color:#DDDDDD;
   border-color:#DDDDDD;
+}
+
+.rightsidebuttonsquizbox{
+  display: flex;
+  flex-direction: column;
+  margin-right: .5em;
+  margin-top: .5em;
+  margin-bottom: .5em;
+}
+
+.leftsidebuttonsquizbox{
+  display: flex;
+  align-items: center;
+  margin-left: .5em;
 }
