@@ -24,12 +24,17 @@ nav {
 .rightbuttons{
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: center;
   font-size: large;
-  justify-items: flex;
+  justify-items: center;
   font-family: "Roboto";
   font-size: large;
+}
+
+.hellousername{
+  display: flex;
+  align-items: center;
+  margin-right: .5em;
 }
 
 .logo {
@@ -122,6 +127,7 @@ nav {
   border-color:#DDDDDD;
 }
 
-.bold {
-  font-weight: 600;
+.logoutbutton{
+  display: flex;
+  align-items: center;
 }
