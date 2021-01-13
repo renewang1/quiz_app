@@ -21,7 +21,9 @@ const createQuizElement = function(quiz) {
     <div class="withinthebox">
       <div class="leftsidebuttonsquizbox">
         <span class="titleofquiz">${escape(quiz.title)}</span>
+        <form method="GET" action="/:id">
         <button class="attemptquizbutton">Attempt Quiz</button>
+        </form>
       </div>
       <span class="descriptionofquiz">${escape(quiz.description)}</span>
       <div class="rightsidebuttonsquizbox">
