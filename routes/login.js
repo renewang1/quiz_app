@@ -8,7 +8,8 @@ module.exports = (db) => {
     if (req.session && req.session.username) {
       res.redirect("/");
     } else {
-      res.render("login");
+      const templateVars = { username: req.session.username };
+      res.render("login", templateVars);
     }
   });
 

@@ -158,19 +158,23 @@ module.exports = (db) => {
       const templateVars = { username: req.session.username };
       res.render("newquiz", templateVars);
     } else {
-      res.render("login");
+      const templateVars = { username: req.session.username };
+      res.render("login", templateVars);
     }
   })
   //Taking quiz page using quiz id
   router.get("/:id", (req, res) => {
-    res.render("quizzes_show");
+    const templateVars = { username: req.session.username };
+    res.render("quizzes_show", templateVars);
   })
   //Getting results of quiz using quiz id and user id
   router.get("/:id/:userid", (req, res) => {
     if (req.session && req.session.username) {
-      res.render("quiz_results");
+      const templateVars = { username: req.session.username };
+      res.render("quiz_results", templateVars);
     } else {
-      res.render("login");
+      const templateVars = { username: req.session.username };
+      res.render("login", templateVars);
     }
   })
   //Post results of quiz to database
@@ -203,7 +207,8 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
     } else {
-      res.render("login");
+      const templateVars = { username: req.session.username };
+      res.render("login", templateVars);
     }
 
   })
