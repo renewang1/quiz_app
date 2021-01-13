@@ -131,3 +131,13 @@ nav {
   display: flex;
   align-items: center;
 }
+
+@media only screen and (max-width: 893px) {
+  nav{
+    height: 140px;
+  }
+  .hellousername{
+    display: none;
+  }
+
+}
