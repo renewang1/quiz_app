@@ -172,12 +172,12 @@ module.exports = (db) => {
   })
   //Taking quiz page using quiz id
   router.get("/:id", (req, res) => {
-    res.render("quizzes_show");
+    res.render("doingquiz");
   })
   //Getting results of quiz using quiz id and user id
   router.get("/:id/:userid", (req, res) => {
     if (req.session && req.session.username) {
-      res.render("quiz_results");
+      res.render("results");
     } else {
       res.render("login");
     }
