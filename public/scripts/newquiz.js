@@ -8,6 +8,7 @@ $(document).ready(function() {
   })
 
   $(document).on('click', '.addanswerbutton', function() {
+    // console.log(this)
     appendAnswer(this);
   })
 
@@ -20,21 +21,22 @@ const escape =  function(str) {
 };
 
 let questionNumber = 2;
+let answerNumber = 1;
 
 const createQuestionElement = function() {
   const $question = $(`
-  <div class="question${questionNumber}">
+  <div class="question${questionNumber}" name="question${questionNumber}">
     <div>
       <label for="question${questionNumber}">Question:</label>
       <input type="text" name="question${questionNumber}" class="question${questionNumber}">
     </div>
     <span>
       <input type="text" name="answers" class="answers">
-      <input type="radio" name="answer${questionNumber}">
+      <input type="radio" name="${answerNumber}">
     </span>
     <span>
       <input type="text" name="answers" class="answers">
-      <input type="radio" name="answer${questionNumber}">
+      <input type="radio" name="${answerNumber + 1}">
     </span>
   </div>
   <button type="button" class="addanswerbutton" name="button${questionNumber}">Add another answer</button>
@@ -49,7 +51,7 @@ const createAnswerElement = function(num) {
   const $answer = $(`
     <span>
       <input type="text" name="answers" class="answers">
-      <input type="radio" name="answer${num}">
+      <input type="radio" name="${num}">
     </span>
   `);
   return $answer;
@@ -75,13 +77,14 @@ const appendQuestion = function() {
 }
 
 const appendAnswer = function(data) {
-  const questionNum = data.parentElement[2].name.slice(-1);
+  let value = $(`button[name="button${data.name.slice(-1)}"]`).prev().children().last().children().last().attr("name");
+  const questionNum = Number(value) + 1;
   let $answer = createAnswerElement(questionNum);
   $(`.question${data.name.slice(-1)}`).append($answer);
 }
 
 const restoreButtons = function() {
-  $(".bottombuttons").empty();
+  $(".bottombuttons").remove();
   $(".addquestionbutton").remove();
   let $bottomButtons = createBottomButtons();
   $(".maininputform").append($bottomButtons);
