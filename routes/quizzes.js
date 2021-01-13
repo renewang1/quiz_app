@@ -7,7 +7,8 @@ module.exports = (db) => {
   //Show all quizzes owned by current user
   router.get("/", (req, res) => {
     console.log("quizzes.js file - req.session" , req.session);
-    res.render("myquizzes");
+    const templateVars = { username: req.session.username };
+    res.render("myquizzes", templateVars);
     }
   );
   //Passing data to frontend
@@ -154,21 +155,26 @@ module.exports = (db) => {
   //Quiz creation page
   router.get("/new", (req, res) => {
     if (req.session && req.session.username) {
-      res.render("newquiz");
+      const templateVars = { username: req.session.username };
+      res.render("newquiz", templateVars);
     } else {
-      res.render("login");
+      const templateVars = { username: req.session.username };
+      res.render("login", templateVars);
     }
   })
   //Taking quiz page using quiz id
   router.get("/:id", (req, res) => {
-    res.render("quizzes_show");
+    const templateVars = { username: req.session.username };
+    res.render("quizzes_show", templateVars);
   })
   //Getting results of quiz using quiz id and user id
   router.get("/:id/:userid", (req, res) => {
     if (req.session && req.session.username) {
-      res.render("quiz_results");
+      const templateVars = { username: req.session.username };
+      res.render("quiz_results", templateVars);
     } else {
-      res.render("login");
+      const templateVars = { username: req.session.username };
+      res.render("login", templateVars);
     }
   })
   //Post results of quiz to database
@@ -201,7 +207,8 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
     } else {
-      res.render("login");
+      const templateVars = { username: req.session.username };
+      res.render("login", templateVars);
     }
 
   })
