@@ -1,15 +1,40 @@
 $(document).ready(function() {
 
   $(document).on('click', '.addquestionbutton', function() {
-    console.log(this)
     appendQuestion(this);
     restoreButtons();
     questionNumber++;
   })
 
   $(document).on('click', '.addanswerbutton', function() {
-    // console.log(this)
     appendAnswer(this);
+  })
+
+  // $(document).on('submit', '#mainform', function() {
+    //     // $.post()
+    // })
+
+  $("#mainform").submit(function(event) {
+    event.preventDefault();
+    let questionNumber = $("input[type=radio]:checked", "#mainform")
+    let checked = $("input[type=radio]:checked", "#mainform")
+    let questions = []
+    let answers = []
+    let object = {}
+
+    for (let check of checked) {
+      answers.push(check.name)
+    }
+    for (let question of questionNumber) {
+      questions.push(question.parentElement.parentElement.className)
+    }
+    for (let i = 0; i < questions.length; i++) {
+      object[questions[i]] = answers[i];
+    }
+    let form = this;
+    $.post("/quizzes/update", object).done(function() {
+      form.submit();
+    })
   })
 
 });
@@ -65,8 +90,8 @@ const createBottomButtons = function() {
       <label for="makeprivatebox" class="makequizprivate">Make private</label>
       <input type="checkbox" name="makeprivatebox">
     </div>
-    <button type="submit" class="createquizbutton">Finish quiz</button>
   </div>
+  <button type="submit" class="bottombuttons" name="createquizbutton">Finish quiz</button>
   `);
   return $bottomButtons;
 }

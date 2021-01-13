@@ -24,8 +24,7 @@ module.exports = (db) => {
     .catch(error => {
       res.status(500).json(error);
     })
-    }
-  )
+  })
   //Creating new quiz
   router.post("/", (req, response) => {
     if (req.session && req.session.username) {
@@ -129,16 +128,16 @@ module.exports = (db) => {
           // console.log(queryParams)
           return db.query(queryString, queryParams)
         })
-        .then(res => {
-          let answers = Object.keys(req.body).filter(item => item.slice(0, 6) === 'answer')
-          let queryString = `
-            UPDATE answers
-            SET is_correct = true
-            WHERE question_id =
-          `
+        // .then(res => {
+        //   let answers = Object.keys(req.body).filter(item => item.slice(0, 6) === 'answer')
+        //   let queryString = `
+        //     UPDATE answers
+        //     SET is_correct = true
+        //     WHERE question_id =
+        //   `
 
-          return db.query(queryString, queryParams)
-        })
+        //   return db.query(queryString, queryParams)
+        // })
         .then(() => {
           response.status(200).send('completed')
         })
@@ -148,16 +147,28 @@ module.exports = (db) => {
             .json({ error: err.message });
         });
       } else {
-        res.render("login");
+        response.render("login");
       }
   });
+  router.post("/update", (req, res) => {
+    console.log('update')
+    return res
+    // return db.query(`
+    //   UPDATE answers
+    //   SET is_correct = true
+    //   WHERE question_id = x
+    //   AND id = y
+    // `)
+  })
+
   //Quiz creation page
   router.get("/new", (req, res) => {
-    if (req.session && req.session.username) {
-      res.render("newquiz");
-    } else {
-      res.render("login");
-    }
+    // if (req.session && req.session.username) {
+    //   res.render("newquiz");
+    // } else {
+    //   res.render("login");
+    // }
+    res.render("newquiz")
   })
   //Taking quiz page using quiz id
   router.get("/:id", (req, res) => {

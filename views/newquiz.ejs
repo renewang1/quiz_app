@@ -23,7 +23,7 @@
     </header>
       <main>
         <div class="mainform">
-          <form class="maininputform" action= "/createquiz" method="POST">
+          <form class="maininputform" id="mainform" action= "/quizzes" method="POST">
             <span class='titleofthepage'>CREATE A NEW QUIZ!</span>
             <div class="titleinfo">
               <label for="titleofquizinput">Title:</label>
@@ -40,11 +40,11 @@
               </div>
               <span>
                 <input type="text" name="answers" class="answers">
-                <input type="radio" name="answer1">
+                <input type="radio" name="1">
               </span>
               <span>
                 <input type="text" name="answers" class="answers">
-                <input type="radio" name="answer1">
+                <input type="radio" name="2">
               </span>
             </div>
             <button type="button" class="addanswerbutton" name="button1">Add another answer</button>
@@ -57,8 +57,8 @@
                 <label for="makeprivatebox" class="makequizprivate">Make private</label>
                 <input type="checkbox" name="makeprivatebox">
               </div>
-              <button type="submit" class="createquizbutton">Finish quiz</button>
             </div>
+            <button type="submit" class="bottombuttons" name="createquizbutton">Finish quiz</button>
           </form>
         </div>
       </main>
