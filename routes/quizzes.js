@@ -7,7 +7,8 @@ module.exports = (db) => {
   //Show all quizzes owned by current user
   router.get("/", (req, res) => {
     console.log("quizzes.js file - req.session" , req.session);
-    res.render("myquizzes");
+    const templateVars = { username: req.session.username };
+    res.render("myquizzes", templateVars);
     }
   );
   //Passing data to frontend
@@ -154,7 +155,8 @@ module.exports = (db) => {
   //Quiz creation page
   router.get("/new", (req, res) => {
     if (req.session && req.session.username) {
-      res.render("newquiz");
+      const templateVars = { username: req.session.username };
+      res.render("newquiz", templateVars);
     } else {
       res.render("login");
     }

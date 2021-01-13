@@ -3,7 +3,10 @@ const router  = express.Router();
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    res.render("index")
+    console.log("homepage.js - req.session: ", req.session);
+    const templateVars = { username: 'test' };
+    console.log('templateVars: ', templateVars);
+    res.render("index", templateVars);
   });
 
   router.get("/data", (req, res) => {

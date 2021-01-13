@@ -1,12 +1,6 @@
 const express = require('express');
 const router  = express.Router();
 const bcrypt = require('bcrypt');
-const cookieSession = require('cookie-session');
-
-router.use(cookieSession({
-  name: "session",
-  keys: ['b6d0e7eb-8c4b-4ae4-8460-fd3a08733dcb', '1fb2d767-ffbf-41a6-98dd-86ac2da9392e']
-}));
 
 module.exports = (db) => {
   const userExists = function(username) {
@@ -28,7 +22,8 @@ module.exports = (db) => {
     if (req.session && req.session.username) {
       res.redirect("/");
     } else {
-      res.render("register")
+      const templateVars = { username: req.session.username };
+      res.render("register", templateVars);
     }
   });
 
