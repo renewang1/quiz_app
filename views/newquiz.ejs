@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/styles/newquiz.css" type="text/css" />
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
+    <script type="text/javascript" src="/scripts/newquiz.js"></script>
   </head>
 
   <body>
@@ -33,23 +33,23 @@
               <label for="descriptionofquiz">Description:</label>
               <textarea type="text" name="descriptionofquiz" class="descriptionofquiz"></textarea>
             </div>
-            <div class="question1info">
-              <label for="question1">Question:</label>
-              <input type="text" name="question1" class="question1">
-            </div>
-            <div class=answersinfo>
-              <label for="answers" class="titleforanswers">Possible answers: Please select correct answer</label>
-              <div class="possibleanswers">
-                <span>
-                  <input type="text" name="answers" class="answers">
-                  <input type="radio" name="answer1">
-                </span>
-                <span>
-                  <input type="text" name="answers" class="answers">
-                  <input type="radio" name="answer1">
-                </span>
-                <button type="button" class="addquestionbutton">Add another answer</button>
+            <div class="question1">
+              <div>
+                <label for="question1">Question:</label>
+                <input type="text" name="question1" class="question1">
               </div>
+              <span>
+                <input type="text" name="answers" class="answers">
+                <input type="radio" name="answer1">
+              </span>
+              <span>
+                <input type="text" name="answers" class="answers">
+                <input type="radio" name="answer1">
+              </span>
+            </div>
+            <button type="button" class="addanswerbutton" name="button1">Add another answer</button>
+            <div>
+              &nbsp;
             </div>
             <button type="button" class="addquestionbutton">Add another question</button>
             <div class="bottombuttons">
