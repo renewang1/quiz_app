@@ -23,7 +23,7 @@
     </header>
       <main>
         <div class="mainform">
-          <form class="maininputform" action= "/createquiz" method="POST">
+          <form class="maininputform" id="mainform" action= "/quizzes" method="POST">
             <span class='titleofthepage'>CREATE A NEW QUIZ!</span>
             <div class="titleinfo">
               <label for="titleofquizinput">Title:</label>
@@ -33,6 +33,7 @@
               <label for="descriptionofquiz">Description:</label>
               <textarea type="text" name="descriptionofquiz" class="descriptionofquiz"></textarea>
             </div>
+<<<<<<< HEAD
             <div class="question1">
               <div>
                 <label for="question1">Question:</label>
@@ -52,14 +53,16 @@
             <div>
               &nbsp;
             </div>
+=======
+>>>>>>> 979e1669174afb446f912dca5e079f1e13aa6575
             <button type="button" class="addquestionbutton">Add another question</button>
             <div class="bottombuttons">
               <div class="makeprivatesections">
                 <label for="makeprivatebox" class="makequizprivate">Make private</label>
                 <input type="checkbox" name="makeprivatebox">
               </div>
-              <button type="submit" class="createquizbutton">Finish quiz</button>
             </div>
+            <input type="submit" class="bottombuttons" name="createquizbutton" value="Finish quiz"></input>
           </form>
         </div>
       </main>

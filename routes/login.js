@@ -1,6 +1,15 @@
 const express = require('express');
 const router  = express.Router();
 const bcrypt = require('bcrypt');
+<<<<<<< HEAD
+=======
+const cookieSession = require('cookie-session');
+
+// router.use(cookieSession({
+//   name: "session",
+//   keys: ['b6d0e7eb-8c4b-4ae4-8460-fd3a08733dcb', '1fb2d767-ffbf-41a6-98dd-86ac2da9392e']
+// }));
+>>>>>>> 979e1669174afb446f912dca5e079f1e13aa6575
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -25,9 +34,9 @@ module.exports = (db) => {
       SELECT * FROM users
       WHERE username = $1;
     `, [username])
-      .then(res => {
-        console.log(res.rows[0].password)
-        if (bcrypt.compareSync(password, res.rows[0].password)) {
+      .then(data => {
+        console.log(data.rows[0].password)
+        if (bcrypt.compareSync(password, data.rows[0].password)) {
           req.session.username = username;
           res.redirect(`/`);
           return;
