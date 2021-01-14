@@ -79,7 +79,7 @@ module.exports = (db) => {
             `
             return db.query(queryString)
             .then(() => {
-              response.redirect(`/quizzes/${quiz_id}/user_id`)
+              response.redirect(`/quizzes/${quiz_id}`)
             })
           })
     })
