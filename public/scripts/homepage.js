@@ -21,11 +21,14 @@ const createQuizElement = function(quiz) {
     <div class="withinthebox">
       <div class="leftsidebuttonsquizbox">
         <span class="titleofquiz">${escape(quiz.title)}</span>
-        <span class="descriptionofquiz">${escape(quiz.description)}</span>
+        <form method="GET" action="/:id">
+        <button class="attemptquizbutton">Attempt Quiz</button>
+        </form>
       </div>
+      <span class="descriptionofquiz">${escape(quiz.description)}</span>
       <div class="rightsidebuttonsquizbox">
         <button class="sharebutton">Share</button>
-        <span class="creator">${escape(quiz.username)}</span>
+        <span class="creator"> Created by: ${escape(quiz.username)}</span>
       </div>
     </div>
   </div>`)

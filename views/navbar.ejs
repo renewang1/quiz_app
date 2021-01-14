@@ -10,9 +10,15 @@
       <button type="submit" class="myquiz">My Quizzes</button>
     </form>
   </div>
+  <% if (username) { %>
   <div class="rightbuttons">
-    <span></span>
-    <span></span>
+    <div class="hellousername">Hello <%= username %></div>
+    <form method="GET" action="/logout" class="logoutbutton">
+      <button type="submit" class="login">Logout</button> <!-- using the .login for the logout button for now -->
+    </form>
+  </div>
+  <% } else { %>
+  <div class="rightbuttons">
     <form method="GET" action="/login">
       <button type="submit" class="login">Login</button>
     </form>
@@ -20,4 +26,7 @@
       <button type="submit" class="createaccount">Register</button>
     </form>
   </div>
+  <% } %>
+  </div>
+
 </nav>

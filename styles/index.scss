@@ -1,5 +1,8 @@
-.quizbox{
+.quiz-container{
   margin-top:160px;
+}
+
+.quizbox{
   margin-left:2em;
   margin-right:2em;
   margin-bottom: 1em;
@@ -16,11 +19,12 @@
 
 .creator{
   font-size: medium;
-  margin-left: 1em;
+  margin-top: .5em;
 }
 
 .descriptionofquiz{
   font-size: medium;
+  margin-right: 1em;
 }
 
 .titleofquiz{
@@ -68,3 +72,12 @@
   margin-top: .5em;
 }
 
+.rightsidebuttonsquizbox{
+  display: flex;
+  flex-direction: column;
+}
+
+.leftsidebuttonsquizbox{
+  display: flex;
+  flex-direction: column;
+}

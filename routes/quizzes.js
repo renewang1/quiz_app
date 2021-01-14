@@ -7,7 +7,8 @@ module.exports = (db) => {
   //Show all quizzes owned by current user
   router.get("/", (req, res) => {
     console.log("quizzes.js file - req.session" , req.session);
-    res.render("myquizzes");
+    const templateVars = { username: req.session.username };
+    res.render("myquizzes", templateVars);
     }
   );
   //Passing data to frontend
@@ -183,7 +184,8 @@ module.exports = (db) => {
     if (req.session && req.session.username) {
       res.render("results");
     } else {
-      res.render("login");
+      const templateVars = { username: req.session.username };
+      res.render("login", templateVars);
     }
   })
 
@@ -217,7 +219,8 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
     } else {
-      res.render("login");
+      const templateVars = { username: req.session.username };
+      res.render("login", templateVars);
     }
 
   })

@@ -26,7 +26,6 @@ const createQuizElement = function(quiz) {
       </div>
       <div class="rightsidebuttonsquizbox">
         <button class="sharebutton">Share</button>
-        <span class="creator">${escape(quiz.username)}</span>
       </div>
     </div>
   </div>`)
