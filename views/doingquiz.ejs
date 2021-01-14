@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="/styles/doingquiz.css" type="text/css" />
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
   <body>
@@ -23,19 +22,29 @@
     </header>
       <main>
         <form action="" method="POST" class="mainform">
-          <div class="titleinfo">This is the title of the quiz</div>
-          <div class="descriptioninfo">And this is going to be the description of what the quiz is</div>
-          <div class="questioninfo">
-            <div class="questiontitle">Is this a good question?</div>
-            <div class=answersinfo>
-              <span class="possibleanswers">
-                <div class="answersforquestion">This is going to be the first answer</div>
-                <input type="radio" name="answer1">
-              </span>
-              <span class="possibleanswers">
-                <div class="answersforquestion">This is going to be the second answer</div>
-                <input type="radio" name="answer1">
-              </span>
+          <div class="titleinfo"><%= data[0].title %></div>
+            <div class="descriptioninfo"><%= data[0].description %></div>
+            <div class="questioninfo">
+            <% let currentquestion = ""
+                let questionNumber = 0;
+              for (let item in data) {
+              if (currentquestion !== data[item].question) {
+                questionNumber += 1;
+                currentquestion = data[item].question %>
+              <div class="questiontitle"><%= currentquestion %></div>
+              <div class=answersinfo>
+                <span class="possibleanswers">
+                  <div class="answersforquestion"><%= data[item].answer %></div>
+                  <input type="radio" name="answer<%= questionNumber%>">
+                </span>
+                    <% } else { %>
+                <span class="possibleanswers">
+                  <div class="answersforquestion"><%= data[item].answer %></div>
+                  <input type="radio" name="answer<%= questionNumber%>" >
+                </span>
+                <% } } %>
+                </div>
+              </div>
             </div>
           </div>
           <button type="submit" class="submitanswersbutton">Submit Answers</button>

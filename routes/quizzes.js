@@ -162,11 +162,6 @@ module.exports = (db) => {
       res.render("login", templateVars);
     }
   })
-  //Taking quiz page using quiz id
-  router.get("/:id", (req, res) => {
-    const templateVars = { username: req.session.username };
-    res.render("quizzes_show", templateVars);
-  })
   //Getting results of quiz using quiz id and user id
   router.get("/:id/:userid", (req, res) => {
     if (req.session && req.session.username) {
@@ -213,5 +208,28 @@ module.exports = (db) => {
 
   })
 
+  router.get("/", (req, res) => {
+    const templateVars = { username: 'test' };
+    res.render("doingquiz", templateVars);
+  });
+
+  router.get("/:id", (req, res) => {
+    return db.query(`
+      SELECT quizzes.title, quizzes.description, quizzes.url, questions.question, answers.answer FROM quizzes
+      INNER JOIN questions ON quizzes.id = questions.quiz_id
+      INNER JOIN answers ON questions.id = answers.question_id
+      WHERE quizzes.id = $1;
+    `, [req.params.id])
+    .then(data => data.rows)
+    .then(rows => {
+      const data = (rows);
+      const templateVars = {data, username: req.session.username};
+      res.render("doingquiz", templateVars)
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    })
+    }
+  )
   return router;
 };

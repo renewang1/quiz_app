@@ -46,6 +46,7 @@ const loginRoutes = require("./routes/login");
 const logoutRoutes = require("./routes/logout");
 const registerRoutes = require("./routes/register");
 const quizzesRoutes = require("./routes/quizzes");
+const doingquizRoutes = require("./routes/doingquiz");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -57,6 +58,7 @@ app.use("/login", loginRoutes(db));
 app.use("/logout", logoutRoutes(db));
 app.use("/register", registerRoutes(db));
 app.use("/quizzes", quizzesRoutes(db));
+app.use("/doingquiz", doingquizRoutes(db));
 
 
 // Home page
