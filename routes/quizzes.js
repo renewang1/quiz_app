@@ -29,7 +29,6 @@ module.exports = (db) => {
   //Creating new quiz
   router.post("/", (req, response) => {
     // console.log("quizzes.js - req: ", req.body);
-    // response.send('hello');
     let returnData = {};
     return db.query(`
       INSERT INTO quizzes (creator_id, title, description, URL, is_private)
@@ -38,7 +37,6 @@ module.exports = (db) => {
     `, [1, req.body.quizTitle, req.body.quizDescription, 'URL', false])
       .then(res => {
         returnData.table1 = res.rows;
-        console.log("returndata table1", res)
         const quiz_id = returnData.table1[0].id
         let queryString = `
           INSERT INTO questions (quiz_id, question)
@@ -58,18 +56,31 @@ module.exports = (db) => {
         return db.query(queryString)
           .then(res => {
             returnData.table2 = res.rows;
-            console.log(returnData.table2)
             let queryString = `
               INSERT INTO answers (question_id, answer, is_correct)
               VALUES
             `
+            let question_id = null;
             for (let question in req.body.questions) {
-              for (let answer in req.body.questions[question]) {
-                queryString += `
-                  ()
-                `
+              for (let insertquestion of returnData.table2) {
+                if (req.body.questions[question].prompt === insertquestion.question) {
+                  question_id = insertquestion.id;
+                  for (let item in req.body.questions[question].answers) {
+                    queryString += `
+                      (${question_id}, ${req.body.questions[question].answers[item].answer}, ${req.body.questions[question].answers[item].correct}),
+                    `
+                  }
+                }
               }
             }
+            queryString = queryString.slice(0, -22);
+            queryString += `
+              RETURNING *;
+            `
+            return db.query(queryString)
+            .then(() => {
+              response.redirect(`/quizzes/${quiz_id}/user_id`)
+            })
           })
     })
     // if (req.session && req.session.username) {
