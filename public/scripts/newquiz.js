@@ -16,6 +16,7 @@ $(document).ready(function() {
     let formInfo = {};
     formInfo["quizTitle"] = $(this).children("div.titleinfo").children("input.inputboxfortitle").val();
     formInfo["quizDescription"] = $(this).children("div.descriptioninfo").children("textarea.descriptionofquiz").val();
+    formInfo["private"] = $(this).children("div.bottombuttons").children("div.makeprivatesections").children("input[type='checkbox']").prop("checked");
     formInfo["questions"] = {};
 
     let questionCount = $(this).children("fieldset.question1").length;
@@ -35,15 +36,15 @@ $(document).ready(function() {
       }
       formInfo.questions[`question${i}`] = questionObject;
     }
-
+    console.log(formInfo)
     $.post("/quizzes", formInfo)
 
-    let form = this;
-    console.log('before post')
-    $.post("/quizzes/update", object).always(function() {
-      console.log('submit')
-      form.submit();
-    })
+    // let form = this;
+    // console.log('before post')
+    // $.post("/quizzes/update", formInfo).always(function() {
+    //   console.log('submit')
+    //   form.submit();
+    // })
 
     // let formInfo = JSON.parse(JSON.stringify($(this).serializeArray()));
     // console.log(formInfo);

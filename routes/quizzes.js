@@ -28,13 +28,13 @@ module.exports = (db) => {
   })
   //Creating new quiz
   router.post("/", (req, response) => {
-    // console.log("quizzes.js - req: ", req.body);
+    console.log("quizzes.js - req: ", req.body);
     let returnData = {};
     return db.query(`
       INSERT INTO quizzes (creator_id, title, description, URL, is_private)
       VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
-    `, [1, req.body.quizTitle, req.body.quizDescription, 'URL', false])
+    `, [1, req.body.quizTitle, req.body.quizDescription, 'URL', req.body.private])
       .then(res => {
         returnData.table1 = res.rows;
         const quiz_id = returnData.table1[0].id
@@ -52,7 +52,7 @@ module.exports = (db) => {
         queryString += `
           RETURNING *;
         `
-        console.log('insert into questions', queryString)
+        // console.log('insert into questions', queryString)
         return db.query(queryString)
           .then(res => {
             returnData.table2 = res.rows;
