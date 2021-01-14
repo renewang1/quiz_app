@@ -14,7 +14,7 @@ module.exports = (db) => {
   //Passing data to frontend
   router.get("/data", (req, res) => {
     // const username = req.session.user_id
-    const username = 'mario';
+    const username = req.session.username;
     db.query(`
       SELECT * FROM quizzes
       INNER JOIN users ON creator_id = users.id
@@ -218,22 +218,12 @@ module.exports = (db) => {
 
   //Quiz creation page
   router.get("/new", (req, res) => {
-<<<<<<< HEAD
-=======
     const templateVars = {username: req.session.username}
->>>>>>> master
     // if (req.session && req.session.username) {
     //   res.render("newquiz");
     // } else {
     //   res.render("login");
     // }
-<<<<<<< HEAD
-    res.render("newquiz")
-  })
-  //Taking quiz page using quiz id
-  router.get("/:id", (req, res) => {
-    res.render("doingquiz");
-=======
     res.render("newquiz", templateVars)
   })
   //Taking quiz page using quiz id
@@ -253,18 +243,13 @@ module.exports = (db) => {
       const templateVars = { data, username: req.session.username}
       res.render("doingquiz", templateVars);
     })
->>>>>>> master
   })
 
   //Getting results of quiz using quiz id and user id
   router.get("/:id/:userid", (req, res) => {
     const templateVars = {username: req.session.username}
     if (req.session && req.session.username) {
-<<<<<<< HEAD
-      res.render("results");
-=======
       res.render("quiz_results", templateVars);
->>>>>>> master
     } else {
       res.render("login", templateVars);
     }
