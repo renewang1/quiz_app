@@ -28,8 +28,50 @@ module.exports = (db) => {
   })
   //Creating new quiz
   router.post("/", (req, response) => {
-    console.log("quizzes.js - req: ", req.body);
-    response.send('hello');
+    // console.log("quizzes.js - req: ", req.body);
+    // response.send('hello');
+    let returnData = {};
+    return db.query(`
+      INSERT INTO quizzes (creator_id, title, description, URL, is_private)
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING *;
+    `, [1, req.body.quizTitle, req.body.quizDescription, 'URL', false])
+      .then(res => {
+        returnData.table1 = res.rows;
+        console.log("returndata table1", res)
+        const quiz_id = returnData.table1[0].id
+        let queryString = `
+          INSERT INTO questions (quiz_id, question)
+          VALUES
+        `
+        for (let question in req.body.questions) {
+          queryString += `
+            (${quiz_id}, ${req.body.questions[question].prompt}),
+          `
+        }
+
+        queryString = queryString.slice(0, -12);
+        queryString += `
+          RETURNING *;
+        `
+        console.log('insert into questions', queryString)
+        return db.query(queryString)
+          .then(res => {
+            returnData.table2 = res.rows;
+            console.log(returnData.table2)
+            let queryString = `
+              INSERT INTO answers (question_id, answer, is_correct)
+              VALUES
+            `
+            for (let question in req.body.questions) {
+              for (let answer in req.body.questions[question]) {
+                queryString += `
+                  ()
+                `
+              }
+            }
+          })
+    })
     // if (req.session && req.session.username) {
     //   const queryParams = [];
     //   const id = req.body.id
