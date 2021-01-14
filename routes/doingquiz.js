@@ -7,7 +7,7 @@ module.exports = (db) => {
     res.render("doingquiz", templateVars);
   });
 
-  router.get("/data", (req, res) => {
+  router.get("/:id", (req, res) => {
     db.query(`
       SELECT * FROM quizzes
       INNER JOIN questions ON quizzes.id = questions.quiz_id

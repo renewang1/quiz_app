@@ -14,14 +14,14 @@
     <link rel="stylesheet" href="/styles/doingquiz.css" type="text/css" />
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/doingquiz.js"></script>
   </head>
-
   <body>
     <header>
       <%- include('navbar') %>
     </header>
       <main>
-        <form action="" method="POST" class="mainform">
+        <form action="/results" method="POST" class="mainform" id="doingquiz">
           <div class="titleinfo"><%= data[0].title %></div>
             <div class="descriptioninfo"><%= data[0].description %></div>
             <div class="questioninfo">
@@ -32,22 +32,22 @@
                 questionNumber += 1;
                 currentquestion = data[item].question %>
               <div class="questiontitle"><%= currentquestion %></div>
-              <div class=answersinfo>
+              <div class="answersinfo">
                 <span class="possibleanswers">
                   <div class="answersforquestion"><%= data[item].answer %></div>
-                  <input type="radio" name="answer<%= questionNumber%>">
+                  <input type="radio" item="<%=`${data[item].quiz_id}-${data[item].question_id}-${data[item].id}`%>" name="question<%=data[item].question_id%>answer<%=questionNumber%>">
                 </span>
                     <% } else { %>
                 <span class="possibleanswers">
                   <div class="answersforquestion"><%= data[item].answer %></div>
-                  <input type="radio" name="answer<%= questionNumber%>" >
+                  <input type="radio" item="<%=`${data[item].quiz_id}-${data[item].question_id}-${data[item].id}`%>" name="question<%=data[item].question_id%>answer<%= questionNumber%>" >
                 </span>
                 <% } } %>
                 </div>
               </div>
             </div>
           </div>
-          <button type="submit" class="submitanswersbutton">Submit Answers</button>
+          <input type="submit" class="submitanswersbutton" value="submit answers"></input>
         </form>
       </main>
   </body>

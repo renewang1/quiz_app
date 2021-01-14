@@ -7,7 +7,8 @@ module.exports = (db) => {
   //Show all quizzes owned by current user
   router.get("/", (req, res) => {
     console.log("quizzes.js file - req.session" , req.session);
-    res.render("myquizzes");
+    const templateVars = {username: req.session.username}
+    res.render("myquizzes", templateVars);
     }
   );
   //Passing data to frontend
@@ -164,23 +165,40 @@ module.exports = (db) => {
 
   //Quiz creation page
   router.get("/new", (req, res) => {
+    const templateVars = {username: req.session.username}
     // if (req.session && req.session.username) {
     //   res.render("newquiz");
     // } else {
     //   res.render("login");
     // }
-    res.render("newquiz")
+    res.render("newquiz", templateVars)
   })
   //Taking quiz page using quiz id
   router.get("/:id", (req, res) => {
-    res.render("quizzes_show");
+    const quizid = req.params.id
+    return db.query(`
+    SELECT * FROM quizzes
+      INNER JOIN questions ON quizzes.id = questions.quiz_id
+      INNER JOIN answers ON questions.id = answers.question_id
+      WHERE quizzes.id = $1
+      ORDER BY questions.id;
+    `, [quizid])
+    .then((data1) => {
+      response.status(200);
+      let data = data1.rows
+      console.log(data[1])
+      const templateVars = { data, username: req.session.username}
+      res.render("doingquiz", templateVars);
+    })
   })
+
   //Getting results of quiz using quiz id and user id
   router.get("/:id/:userid", (req, res) => {
+    const templateVars = {username: req.session.username}
     if (req.session && req.session.username) {
-      res.render("quiz_results");
+      res.render("quiz_results", templateVars);
     } else {
-      res.render("login");
+      res.render("login", templateVars);
     }
   })
 
@@ -201,6 +219,7 @@ module.exports = (db) => {
 
   //Delete quiz
   router.delete("/:id", (req, res) => {
+    const templateVars = {username: req.session.username}
     if (req.session && req.session.username) {
       return db.query(`
       UPDATE quizzes
@@ -214,7 +233,7 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
     } else {
-      res.render("login");
+      res.render("login", templateVars);
     }
   })
   return router;
