@@ -13,9 +13,8 @@
   <% if (username) { %>
   <div class="rightbuttons">
     <div class="hellousername">Hello <%= username %></div>
-    <form method="GET" action="/logout" class="logoutbutton">
-      <button type="submit" class="login">Logout</button> <!-- using the .login for the logout button for now -->
-    </form>
+    <form method="POST" action="/logout" class="logoutbutton">
+      <button type="submit" class="login">Logout</button>
   </div>
   <% } else { %>
   <div class="rightbuttons">
@@ -28,5 +27,4 @@
   </div>
   <% } %>
   </div>
-
 </nav>

@@ -60,7 +60,9 @@ font-size: x-large;
   transition: all 0.15s;
   background-color: rgb(56, 118, 153);
 }
-
+.answersinfo{
+  margin-bottom: 1em;
+}
 .bottombuttons{
   display: flex;
   flex-direction: row;
@@ -73,11 +75,13 @@ font-size: x-large;
 .questioninfo{
   border:2px solid rgb(46, 48, 49);
   padding-left: 1em;
-  padding-top: 1em;
+  padding-top: .5em;
   padding-bottom: 1em;
+  margin-bottom: 2em;
 }
 
 .questiontitle{
   padding-bottom: .5em;
   font-size: xx-large;
+  padding-top: .5em;
 }
