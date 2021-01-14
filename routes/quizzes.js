@@ -7,8 +7,7 @@ module.exports = (db) => {
   //Show all quizzes owned by current user
   router.get("/", (req, res) => {
     console.log("quizzes.js file - req.session" , req.session);
-    const templateVars = { username: req.session.username };
-    res.render("myquizzes", templateVars);
+    res.render("myquizzes");
     }
   );
   //Passing data to frontend
@@ -138,7 +137,6 @@ module.exports = (db) => {
     //     //     SET is_correct = true
     //     //     WHERE question_id =
     //     //   `
-
     //     //   return db.query(queryString, queryParams)
     //     // })
     //     .then(() => {
@@ -153,8 +151,6 @@ module.exports = (db) => {
     //     response.render("login");
     //   }
   });
-
-
   router.post("/update", (req, res) => {
     console.log('update')
     return res
@@ -168,31 +164,23 @@ module.exports = (db) => {
 
   //Quiz creation page
   router.get("/new", (req, res) => {
-<<<<<<< HEAD
-    if (req.session && req.session.username) {
-      const templateVars = { username: req.session.username };
-      res.render("newquiz", templateVars);
-    } else {
-      const templateVars = { username: req.session.username };
-      res.render("login", templateVars);
-    }
-=======
     // if (req.session && req.session.username) {
     //   res.render("newquiz");
     // } else {
     //   res.render("login");
     // }
     res.render("newquiz")
->>>>>>> 979e1669174afb446f912dca5e079f1e13aa6575
+  })
+  //Taking quiz page using quiz id
+  router.get("/:id", (req, res) => {
+    res.render("quizzes_show");
   })
   //Getting results of quiz using quiz id and user id
   router.get("/:id/:userid", (req, res) => {
     if (req.session && req.session.username) {
-      const templateVars = { username: req.session.username };
-      res.render("quiz_results", templateVars);
+      res.render("quiz_results");
     } else {
-      const templateVars = { username: req.session.username };
-      res.render("login", templateVars);
+      res.render("login");
     }
   })
 
@@ -226,34 +214,8 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
     } else {
-      const templateVars = { username: req.session.username };
-      res.render("login", templateVars);
+      res.render("login");
     }
-
   })
-
-  router.get("/", (req, res) => {
-    const templateVars = { username: 'test' };
-    res.render("doingquiz", templateVars);
-  });
-
-  router.get("/:id", (req, res) => {
-    return db.query(`
-      SELECT quizzes.title, quizzes.description, quizzes.url, questions.question, answers.answer FROM quizzes
-      INNER JOIN questions ON quizzes.id = questions.quiz_id
-      INNER JOIN answers ON questions.id = answers.question_id
-      WHERE quizzes.id = $1;
-    `, [req.params.id])
-    .then(data => data.rows)
-    .then(rows => {
-      const data = (rows);
-      const templateVars = {data, username: req.session.username};
-      res.render("doingquiz", templateVars)
-    })
-    .catch(error => {
-      res.status(500).json(error);
-    })
-    }
-  )
   return router;
 };
