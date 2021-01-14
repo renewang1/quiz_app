@@ -32,15 +32,15 @@ module.exports = (db) => {
     const username = req.session.username;
     return db.query(`
       SELECT * FROM users WHERE username = $1
-    `, username)
+    `, [username])
     .then(user => {
-      console.log(user)
+      const user_id = user.rows[0].id
       let returnData = {};
       return db.query(`
         INSERT INTO quizzes (creator_id, title, description, URL, is_private)
         VALUES ($1, $2, $3, $4, $5)
         RETURNING *;
-      `, [1, req.body.quizTitle, req.body.quizDescription, 'URL', req.body.private])
+      `, [user_id, req.body.quizTitle, req.body.quizDescription, 'URL', req.body.private])
         .then(res => {
           returnData.table1 = res.rows;
           const quiz_id = returnData.table1[0].id
