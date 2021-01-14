@@ -29,59 +29,65 @@ module.exports = (db) => {
   //Creating new quiz
   router.post("/", (req, response) => {
     console.log("quizzes.js - req: ", req.body);
-    let returnData = {};
+    const username = req.session.username;
     return db.query(`
-      INSERT INTO quizzes (creator_id, title, description, URL, is_private)
-      VALUES ($1, $2, $3, $4, $5)
-      RETURNING *;
-    `, [1, req.body.quizTitle, req.body.quizDescription, 'URL', req.body.private])
-      .then(res => {
-        returnData.table1 = res.rows;
-        const quiz_id = returnData.table1[0].id
-        let queryString = `
-          INSERT INTO questions (quiz_id, question)
-          VALUES
-        `
-        for (let question in req.body.questions) {
-          queryString += `
-            (${quiz_id}, ${req.body.questions[question].prompt}),
+      SELECT * FROM users WHERE username = $1
+    `, username)
+    .then(user => {
+      console.log(user)
+      let returnData = {};
+      return db.query(`
+        INSERT INTO quizzes (creator_id, title, description, URL, is_private)
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING *;
+      `, [1, req.body.quizTitle, req.body.quizDescription, 'URL', req.body.private])
+        .then(res => {
+          returnData.table1 = res.rows;
+          const quiz_id = returnData.table1[0].id
+          let queryString = `
+            INSERT INTO questions (quiz_id, question)
+            VALUES
           `
-        }
-
-        queryString = queryString.slice(0, -12);
-        queryString += `
-          RETURNING *;
-        `
-        // console.log('insert into questions', queryString)
-        return db.query(queryString)
-          .then(res => {
-            returnData.table2 = res.rows;
-            let queryString = `
-              INSERT INTO answers (question_id, answer, is_correct)
-              VALUES
+          for (let question in req.body.questions) {
+            queryString += `
+              (${quiz_id}, ${req.body.questions[question].prompt}),
             `
-            let question_id = null;
-            for (let question in req.body.questions) {
-              for (let insertquestion of returnData.table2) {
-                if (req.body.questions[question].prompt === insertquestion.question) {
-                  question_id = insertquestion.id;
-                  for (let item in req.body.questions[question].answers) {
-                    queryString += `
-                      (${question_id}, ${req.body.questions[question].answers[item].answer}, ${req.body.questions[question].answers[item].correct}),
-                    `
+          }
+          queryString = queryString.slice(0, -12);
+          queryString += `
+            RETURNING *;
+          `
+          // console.log('insert into questions', queryString)
+          return db.query(queryString)
+            .then(res => {
+              returnData.table2 = res.rows;
+              let queryString = `
+                INSERT INTO answers (question_id, answer, is_correct)
+                VALUES
+              `
+              let question_id = null;
+              for (let question in req.body.questions) {
+                for (let insertquestion of returnData.table2) {
+                  if (req.body.questions[question].prompt === insertquestion.question) {
+                    question_id = insertquestion.id;
+                    for (let item in req.body.questions[question].answers) {
+                      queryString += `
+                        (${question_id}, ${req.body.questions[question].answers[item].answer}, ${req.body.questions[question].answers[item].correct}),
+                      `
+                    }
                   }
                 }
               }
-            }
-            queryString = queryString.slice(0, -22);
-            queryString += `
-              RETURNING *;
-            `
-            return db.query(queryString)
-            .then(() => {
-              response.redirect(`/quizzes/${quiz_id}`)
+              queryString = queryString.slice(0, -22);
+              queryString += `
+                RETURNING *;
+              `
+              return db.query(queryString)
+              .then(() => {
+                response.redirect(`/quizzes/${quiz_id}`)
+              })
             })
-          })
+      })
     })
     // if (req.session && req.session.username) {
     //   const queryParams = [];
@@ -259,7 +265,7 @@ module.exports = (db) => {
   router.post("/:id/:userid", (req, res) => {
     const user_id = req.params.userid;
     const quiz_id = req.params.id;
-    const score = req.body.score;
+    const score = 30;
     return db.query(`
       INSERT INTO results (user_id, quiz_id, result)
       VALUES ($1, $2, $3)
