@@ -53,7 +53,7 @@ const doingquizRoutes = require("./routes/doingquiz");
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 // Note: mount other resources here, using the same pattern above
-//app.use("/homepage", homepageRoutes(db));
+app.use("/homepage", homepageRoutes(db));
 app.use("/login", loginRoutes(db));
 app.use("/logout", logoutRoutes(db));
 app.use("/register", registerRoutes(db));

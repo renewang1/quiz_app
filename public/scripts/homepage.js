@@ -1,12 +1,8 @@
 $(document).ready(function() {
-  const loadQuizzes = function() {
-    $.ajax("/homepage/data", { method: 'GET' })
-      .done(function(data) {
-        renderQuizzes(data);
-      });
-  };
-
-  loadQuizzes();
+  $.ajax("/homepage/data", { method: 'GET' })
+    .done(function(data) {
+      renderQuizzes(data);
+    });
 });
 
 const escape =  function(str) {
@@ -37,6 +33,7 @@ const createQuizElement = function(quiz) {
 
 const renderQuizzes = function(data) {
   $('.quiz-container').empty();
+  console.log(data)
   for (let quiz of data) {
     let $quiz = createQuizElement(quiz);
     $('.quiz-container').append($quiz);
