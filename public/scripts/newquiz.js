@@ -32,7 +32,9 @@ $(document).ready(function() {
       object[questions[i]] = answers[i];
     }
     let form = this;
-    $.post("/quizzes/update", object).done(function() {
+    console.log('before post')
+    $.post("/quizzes/update", object).always(function() {
+      console.log('submit')
       form.submit();
     })
   })

@@ -151,7 +151,7 @@ module.exports = (db) => {
       }
   });
   router.post("/update", (req, res) => {
-    console.log('update')
+    console.log(req)
     return res
     // return db.query(`
     //   UPDATE answers
