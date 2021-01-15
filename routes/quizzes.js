@@ -2,6 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const bcrypt = require('bcrypt');
 const { query, response } = require('express');
+const { restart } = require('nodemon');
 
 module.exports = (db) => {
   //Show all quizzes owned by current user
@@ -186,36 +187,63 @@ module.exports = (db) => {
     .then((data1) => {
       response.status(200);
       let data = data1.rows
-      console.log(data[1])
-      const templateVars = { data, username: req.session.username}
+      const templateVars = { data, username: req.session.username, quizid}
       res.render("doingquiz", templateVars);
     })
   })
 
   //Getting results of quiz using quiz id and user id
-  router.get("/:id/:userid", (req, res) => {
-    const templateVars = {username: req.session.username}
-    if (req.session && req.session.username) {
-      res.render("quiz_results", templateVars);
-    } else {
-      res.render("login", templateVars);
-    }
+  router.get("/:id/results", (req, res) => {
+    // if (req.session && req.session.username) {
+    //   res.render("results", templateVars);
+    // } else {
+    //   res.render("login", templateVars);
+    // }
+
+    console.log(req.cookies)
+    const {numOfCorrectAnswers, totalquestions} = req.cookies
+    res.clearCookie("numOfCorrectAnswers");
+    res.clearCookie("totalquestions");
+    const templateVars = {username: req.session.username, totalquestions, numOfCorrectAnswers };
+    res.render("results", templateVars);
   })
 
-  //Post results of quiz to database
-  router.post("/:id/:userid", (req, res) => {
-    const user_id = req.params.userid;
-    const quiz_id = req.params.id;
-    const score = req.body.score;
+  const checkanswers = function(db, answerId) {
     return db.query(`
-      INSERT INTO results (user_id, quiz_id, result)
-      VALUES ($1, $2, $3)
-    `, [user_id, quiz_id, score])
-    .then(() => {
-      response.status(200);
-      res.redirect("../../");
+      SELECT COUNT(is_correct) FROM answers
+      WHERE id IN ($1) AND is_correct = true;
+      `, [answerId])
+  }
+  //Post results of quiz to database
+  router.post("/:id", (req, res) => {
+    const totalquestions = req.body.forminfo.length;
+    let numOfCorrectAnswers = 0
+    const myArray = [];
+    for(let quizanswer of req.body.forminfo) {
+      const promise = checkanswers(db, parseInt(quizanswer.answer_id))
+        myArray.push(promise)
+    }
+    Promise.all(myArray).then((data) => {
+      data.map(answer => {
+        numOfCorrectAnswers += parseInt(answer.rows[0].count);
+      })
+    res.cookie("numOfCorrectAnswers", numOfCorrectAnswers);
+    res.cookie("totalquestions", totalquestions)
+    res.redirect(`/quizzes/${req.params.id}/results`);
     })
   })
+
+    // const user_id = req.params.user_id;
+    // const quiz_id = req.params.id;
+    // return db.query(`
+    //   INSERT INTO results (user_id, quiz_id, result)
+    //   VALUES ($1, $2, $3)
+    // `, [user_id, quiz_id, score])
+    // .then(() => {
+    //   response.status(200);
+    //   res.redirect("/:id/:userid");
+    // })
+
 
   //Delete quiz
   router.delete("/:id", (req, res) => {

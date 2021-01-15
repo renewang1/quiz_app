@@ -10,6 +10,7 @@ const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
 const cookieSession = require('cookie-session');
+const cookieParser = require('cookie-parser')
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -24,6 +25,7 @@ app.use(morgan('dev'));
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser())
 app.use("/styles", sass({
   src: __dirname + "/styles",
   dest: __dirname + "/public/styles",
@@ -47,6 +49,7 @@ const logoutRoutes = require("./routes/logout");
 const registerRoutes = require("./routes/register");
 const quizzesRoutes = require("./routes/quizzes");
 const doingquizRoutes = require("./routes/doingquiz");
+const resultsRoutes = require("./routes/quizzes")
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -59,6 +62,7 @@ app.use("/logout", logoutRoutes(db));
 app.use("/register", registerRoutes(db));
 app.use("/quizzes", quizzesRoutes(db));
 app.use("/doingquiz", doingquizRoutes(db));
+app.use("/results", resultsRoutes(db));
 
 
 // Home page

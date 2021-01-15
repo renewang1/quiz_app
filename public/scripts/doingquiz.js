@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   $("#doingquiz").submit(function(event) {
-    event.preventDefault();
+    event.preventDefault()
     let forminfo = []
     $("#doingquiz").children("div.questioninfo").children("div.answersinfo").find("input[type=radio]:checked").each((i,v) => {
       console.log(v)
@@ -9,8 +9,7 @@ $(document).ready(function() {
       const parse = parsedval.split('-')
       forminfo.push({quiz_id: parse[0], question_id: parse[1], answer_id: parse[2]})
     })
-
-    $.post(`/quizzes/${forminfo[0].quiz_id}/results`, {forminfo});
+    $.post(`/quizzes/${forminfo[0].quiz_id}`, {forminfo});
     // console.log($("#doingquiz").children("div.questioninfo").children("div.answersinfo").find("input[type=radio]:checked").val() === "on")
   })
 })
