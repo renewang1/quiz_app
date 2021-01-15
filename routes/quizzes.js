@@ -2,6 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const bcrypt = require('bcrypt');
 const { query, response } = require('express');
+const { restart } = require('nodemon');
 
 module.exports = (db) => {
   //Show all quizzes owned by current user
@@ -254,8 +255,11 @@ module.exports = (db) => {
   //Getting results of quiz using quiz id and user id
   router.get("/:id/:userid", (req, res) => {
     const templateVars = {username: req.session.username}
+    // console.log('inside get')
     if (req.session && req.session.username) {
-      res.render("quiz_results", templateVars);
+      // console.log('inside render')
+      // res.send('hello')
+      res.render("results", templateVars);
     } else {
       res.render("login", templateVars);
     }
@@ -265,14 +269,39 @@ module.exports = (db) => {
   router.post("/:id/:userid", (req, res) => {
     const user_id = req.params.userid;
     const quiz_id = req.params.id;
-    const score = 30;
+    let returnData = {user_id, quiz_id}
+    let answers = [];
+    for (let item of req.body.forminfo) {
+      answers.push(item.answer_id)
+    }
     return db.query(`
-      INSERT INTO results (user_id, quiz_id, result)
-      VALUES ($1, $2, $3)
-    `, [user_id, quiz_id, score])
-    .then(() => {
-      response.status(200);
-      res.redirect("../../");
+      SELECT is_correct FROM answers
+      WHERE id IN (${answers});
+    `)
+    .then(data => {
+      let count = 0;
+      for (let item of data.rows) {
+        if (item.is_correct) {
+          count++;
+        }
+      }
+      returnData.count = count;
+      return returnData
+    })
+    .then(result => {
+      // console.log(result)
+      db.query(`
+        INSERT INTO results (user_id, quiz_id, result)
+        VALUES ($1, $2, $3)
+      `, [user_id, quiz_id, returnData.count])
+      return db.query(`
+      SELECT * FROM users WHERE id = $1
+      `, [user_id])
+    })
+    .then((user) => {
+      returnData.username = user.rows[0].username
+      res.render("results", returnData)
+      console.log('after render')
     })
   })
 

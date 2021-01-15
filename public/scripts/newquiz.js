@@ -33,12 +33,12 @@ $(document).ready(function() {
     console.log(formInfo)
     $.post("/quizzes", formInfo)
 
-    let form = this;
-    console.log('before post')
-    $.post("/quizzes/update", object).always(function() {
-      console.log('submit')
-      form.submit();
-    })
+    // let form = this;
+    // console.log('before post')
+    // $.post("/quizzes/update", object).always(function() {
+    //   console.log('submit')
+    //   form.submit();
+    // })
     // let form = this;
     // console.log('before post')
     // $.post("/quizzes/update", formInfo).always(function() {
