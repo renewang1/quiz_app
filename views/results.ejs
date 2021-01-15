@@ -22,9 +22,9 @@
     </header>
       <main>
         <form action="" method="POST" class="mainform">
-          <div class="titleinfo">This is the title of the quiz</div>
+          <div class="titleinfo"><%= title %></div>
           <div class="resultsinfo">Congratulations! You got <%= result %>/<%= numQuestions %></div>
-          <div class="questioninfo">
+          <!-- <div class="questioninfo">
             <%= username %>
             <div class="questiontitle">Is this a good question?</div>
             <div class=answersinfo>
@@ -38,7 +38,7 @@
                 <span class="answersforquestion">This is going to be the third answer</span>
               </span>
             </div>
-          </div>
+          </div> -->
           <button type="submit" class="sharebutton">Share results</button>
         </form>
       </main>

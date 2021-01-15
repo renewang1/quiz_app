@@ -269,6 +269,7 @@ module.exports = (db) => {
       `, [user_id, quiz_id])
       .then(data => {
         templateVars.result = data.rows[data.rows.length - 1].result
+        templateVars.title = data.rows[data.rows.length - 1].title
         // templateVars.numQuestions = data.rows[data.rows.length - 1].numQuestions
         return db.query(`
           SELECT count(*) FROM questions
