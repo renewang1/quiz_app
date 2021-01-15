@@ -46,22 +46,24 @@ module.exports = (db) => {
           returnData.table1 = res.rows;
           const quiz_id = returnData.table1[0].id
           let queryString = `
-            INSERT INTO questions (quiz_id, question)
-            VALUES
+          INSERT INTO questions (quiz_id, question)
+          VALUES
           `
           for (let question in req.body.questions) {
             queryString += `
-              (${quiz_id}, ${req.body.questions[question].prompt}),
+            (${quiz_id}, ${req.body.questions[question].prompt}),
             `
           }
-          queryString = queryString.slice(0, -12);
+          queryString = queryString.slice(0, -14);
           queryString += `
-            RETURNING *;
+          RETURNING *;
           `
+          // console.log('insert into questions')
           // console.log('insert into questions', queryString)
           return db.query(queryString)
             .then(res => {
               returnData.table2 = res.rows;
+              // console.log('insert into answers')
               let queryString = `
                 INSERT INTO answers (question_id, answer, is_correct)
                 VALUES
@@ -79,10 +81,11 @@ module.exports = (db) => {
                   }
                 }
               }
-              queryString = queryString.slice(0, -22);
+              queryString = queryString.slice(0, -24);
               queryString += `
                 RETURNING *;
               `
+              // console.log('insert into answers', queryString)
               return db.query(queryString)
               .then(() => {
                 response.redirect(`/quizzes`)

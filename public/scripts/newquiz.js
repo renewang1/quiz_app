@@ -30,8 +30,18 @@ $(document).ready(function() {
       formInfo.questions[`question${i}`] = questionObject;
     }
 
-    console.log(formInfo)
+    // console.log(formInfo)
+    const get = function () {
+      $.get(`/quizzes`, function(data) {
+        // console.log('now inside')
+        document.write(data)
+      });
+    }
+
     $.post("/quizzes", formInfo)
+      .done(() => {
+        get();
+      })
 
     // let form = this;
     // console.log('before post')
