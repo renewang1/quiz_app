@@ -23,9 +23,14 @@
       <main>
         <form action="" method="POST" class="mainform">
           <div class="titleinfo"> <%= title %></div>
-          <div class="resultsinfo"> <%= username %> got <%= result %>/<%= numQuestions %></div>
-          <!-- <div class="questioninfo">
-            <%= username %>
+          <div class="resultsinfo"> <%= username %> got <%= result %>/<%= numQuestions %> </div>
+          <div>Share your results with the link below</div>
+          <div class="questioninfo" id="html"></div>
+          <script>
+              var x = document.URL;
+              document.getElementById("html").innerHTML = x;
+            </script>
+            <!-- <%= username %>
             <div class="questiontitle">Is this a good question?</div>
             <div class=answersinfo>
               <span class="possibleanswers">
