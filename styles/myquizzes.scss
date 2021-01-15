@@ -1,10 +1,13 @@
 .quizbox{
-  margin-top:160px;
-  margin-left:2em;
-  margin-right:2em;
   margin-bottom: 1em;
   font-family: "roboto";
   font-size: xx-large;
+}
+
+.quiz-container{
+  margin-top:160px;
+  margin-left:2em;
+  margin-right:2em;
 }
 
 .withinthebox{
@@ -12,6 +15,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding: 1em
 }
 
 .upperquizbox{
