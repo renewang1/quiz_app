@@ -249,7 +249,8 @@ module.exports = (db) => {
     .then((data1) => {
       response.status(200);
       let data = data1.rows
-      console.log(data[1])
+      console.log(data)
+      // console.log(data[1])
       const templateVars = { data, username: req.session.username}
       res.render("doingquiz", templateVars);
     })

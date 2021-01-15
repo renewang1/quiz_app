@@ -11,7 +11,7 @@ module.exports = (db) => {
 
   router.get("/data", (req, res) => {
     return db.query(`
-      SELECT * FROM quizzes
+      SELECT title, quizzes.id as id, description, users.username as username FROM quizzes
       INNER JOIN users ON creator_id = users.id
       WHERE is_private = false
       AND deleted_at IS NULL;

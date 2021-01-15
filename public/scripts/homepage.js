@@ -12,6 +12,7 @@ const escape =  function(str) {
 };
 
 const createQuizElement = function(quiz) {
+  // console.log(quiz)
   const $quiz = $(`
   <div class="quizbox">
     <div class="withinthebox">
