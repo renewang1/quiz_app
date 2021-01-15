@@ -254,12 +254,33 @@ module.exports = (db) => {
 
   //Getting results of quiz using quiz id and user id
   router.get("/:id/:userid", (req, res) => {
-    const templateVars = {username: req.session.username}
+    const quiz_id = req.params.id
+    const user_id = req.params.userid
+    const templateVars = {username: req.session.username, quiz_id, user_id}
     // console.log('inside get')
     if (req.session && req.session.username) {
       // console.log('inside render')
       // res.send('hello')
-      res.render("results", templateVars);
+      return db.query(`
+        SELECT result, title FROM results
+        INNER JOIN quizzes ON quizzes.id = results.quiz_id
+        WHERE user_id = $1
+        AND results.quiz_id = $2;
+      `, [user_id, quiz_id])
+      .then(data => {
+        templateVars.result = data.rows[data.rows.length - 1].result
+        // templateVars.numQuestions = data.rows[data.rows.length - 1].numQuestions
+        return db.query(`
+          SELECT count(*) FROM questions
+          INNER JOIN quizzes ON quizzes.id = quiz_id
+          WHERE quiz_id = $1;
+        `, [quiz_id])
+      })
+      .then((count) => {
+        console.log(count.rows)
+        templateVars.numQuestions = count.rows[0].count
+        res.render("results", templateVars);
+      })
     } else {
       res.render("login", templateVars);
     }
@@ -300,8 +321,7 @@ module.exports = (db) => {
     })
     .then((user) => {
       returnData.username = user.rows[0].username
-      res.render("results", returnData)
-      console.log('after render')
+      res.redirect(`/quizzes/${quiz_id}/${user_id}`)
     })
   })
 

@@ -11,6 +11,7 @@ $(document).ready(function() {
     })
     const get = function () {
       $.get(`/quizzes/${forminfo[0].quiz_id}/6`, function(data) {
+        console.log('now inside')
         document.write(data)
       });
     }
